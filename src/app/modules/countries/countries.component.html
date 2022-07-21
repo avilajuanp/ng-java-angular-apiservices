@@ -1,0 +1,86 @@
+<div class="container mt-3">
+    <div class="row">
+        <div class="col">
+            <h3>Formulario de Carga de Países</h3>
+            <form [formGroup]="form">
+                <div class="mb-3">
+                    <label class="form-label">Nombre</label>
+                    <!--Agregamos las validaciones y las alertas visuales cuando un campo no está completo-->
+                    <input type="text" class="form-control" formControlName="name"
+                        [ngClass]="{ 'is-invalid': f.name.touched && f.name.errors}" placeholder="Nombre del país">
+                    <div *ngIf="f.name.touched && f.name.errors" class="invalid-feedback">
+                        <div *ngIf="f.name.errors.required">Debe ingresar un nombre</div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Url de imagen</label>
+                    <input type="text" class="form-control" formControlName="image"
+                        [ngClass]="{ 'is-invalid': f.image.touched && f.image.errors}"
+                        placeholder="Ingrese url del archivo de imagen">
+                    <div *ngIf="f.image.touched && f.image.errors" class="invalid-feedback">
+                        <div *ngIf="f.image.errors.required">Debe ingresar una url</div>
+                    </div>
+
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Cant. de Habitantes</label>
+                    <input type="number" class="form-control" formControlName="population" placeholder="Habitantes"
+                        [ngClass]="{ 'is-invalid': f.population.touched && f.population.errors}">
+                    <div *ngIf="f.population.touched && f.population.errors" class="invalid-feedback">
+                        <div *ngIf="f.population.errors.required">Debe ingresar un valor</div>
+                        <div *ngIf="f.population.errors.min">El valor debe ser positivo</div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Superficie</label>
+                    <input type="number" class="form-control" formControlName="area" placeholder="Ingrese kilómetros cuadrados"
+                    [ngClass]="{ 'is-invalid': f.area.touched && f.area.errors}">
+                    <div *ngIf="f.area.touched && f.area.errors" class="invalid-feedback">
+                        <div *ngIf="f.area.errors.required">Debe ingresar un valor</div>
+                        <div *ngIf="f.area.errors.min">El valor debe ser positivo</div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">ID de Continente</label>
+                    <input type="number" class="form-control" formControlName="continentId" placeholder="ingrese ID"
+                    [ngClass]="{ 'is-invalid': f.continentId.touched && f.continentId.errors}">
+                    <div *ngIf="f.continentId.touched && f.continentId.errors" class="invalid-feedback">
+                        <div *ngIf="f.continentId.errors.required">Debe ingresar un valor</div>
+                        <div *ngIf="f.continentId.errors.min">El valor debe ser positivo</div>
+                    </div>
+                </div>
+            </form>
+            <div class="form-group mt-3 text-end">
+                <button type="reset" class="btn btn-secondary px-4" (click)="cleanForm()">Limpiar datos</button>
+                <button type="submit" class="btn btn-primary px-4 ms-2" (click)="saveCountry()"
+                    [disabled]="this.form.invalid">Guardar</button>
+            </div>
+        </div>
+        <div class="col">
+            <h3>Listado de países cargados</h3>
+            <br>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <!--<th scope="col">#</th>-->
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Url imagen</th>
+                        <th scope="col">Habitantes</th>
+                        <th scope="col">Superficie</th>
+                        <th scope="col">Id continente</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of countryList">
+                        <!--<th scope="row">1</th>-->
+                        <td>{{item.name}}</td>
+                        <td>{{item.image}}</td>
+                        <td>{{item.population | number}}</td>
+                        <td>{{item.area | number}} km2</td>
+                        <td>{{item.continentId}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

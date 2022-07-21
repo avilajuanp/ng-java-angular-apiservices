@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  //agrego la url donde tengo alojada la Api, y uso esta variable en el resto del código
+  country: 'http://localhost:8080/'
 };
 
 /*
